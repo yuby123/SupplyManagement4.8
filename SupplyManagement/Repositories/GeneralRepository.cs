@@ -3,7 +3,7 @@ using SupplyManagement.Utilities.Handler;
 using SupplyManagement.Data;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity; // Ganti System.Data.Entity karena menggunakan EF 6
+using System.Data.Entity;
 using System.Linq;
 
 namespace SupplyManagement.Repositories
@@ -19,16 +19,12 @@ namespace SupplyManagement.Repositories
 
         public IEnumerable<TEntity> GetAll()
         {
-            // EF 6 menggunakan ToList() secara langsung tanpa AsNoTracking()
             return _context.Set<TEntity>().ToList();
         }
 
         public TEntity GetByGuid(Guid guid)
         {
-            // Find() tetap digunakan untuk mencari entitas berdasarkan kunci
             var entity = _context.Set<TEntity>().Find(guid);
-            // Clear() tidak ada di EF 6, bisa digunakan AsNoTracking() atau reset context jika perlu
-            // _context.Entry(entity).State = EntityState.Detached;
             return entity;
         }
 
@@ -42,8 +38,6 @@ namespace SupplyManagement.Repositories
             }
             catch (Exception ex)
             {
-                // Exception handling harus disesuaikan dengan cara EF 6 menangani exceptions
-                // is not null diganti dengan != null untuk kompatibilitas dengan C# versi sebelumnya
                 if (ex.InnerException != null && ex.InnerException.Message.Contains("IX_tb_m_employees_email"))
                 {
                     throw new ExceptionHandler("Email sudah ada");
@@ -60,14 +54,13 @@ namespace SupplyManagement.Repositories
         {
             try
             {
-                _context.Entry(entity).State = EntityState.Modified; // Cara update di EF 6
+                _context.Entry(entity).State = EntityState.Modified;
                 _context.SaveChanges();
                 return true;
             }
             catch (Exception ex)
             {
-                // Handle exception seperti di Create()
-                throw; // Ulangi pengecualian atau tangani sesuai dengan logika bisnis Anda
+                throw;
             }
         }
 
@@ -81,7 +74,6 @@ namespace SupplyManagement.Repositories
             }
             catch
             {
-                // Anda bisa menambahkan logika penanganan kesalahan yang lebih baik di sini
                 return false;
             }
         }

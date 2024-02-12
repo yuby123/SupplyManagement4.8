@@ -25,7 +25,7 @@
 
             context.Roles.AddOrUpdate(
                 r => r.Name,
-                new Role { Guid = roleIdVendor, Name = "vendor" },
+                new Role { Guid = roleIdVendor, Name = "company" },
                 new Role { Guid = roleIdAdmin, Name = "admin" },
                 new Role { Guid = roleIdManager, Name = "manager" }
             );

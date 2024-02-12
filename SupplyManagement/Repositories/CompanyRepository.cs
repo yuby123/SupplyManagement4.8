@@ -2,6 +2,8 @@
 using SupplyManagement.Contracts;
 using SupplyManagement.Models;
 using System.Linq;
+using SupplyManagement.Utilities.Enums;
+using System.Collections.Generic;
 
 namespace SupplyManagement.Repositories
 {
@@ -17,6 +19,12 @@ namespace SupplyManagement.Repositories
         public Company GetByCompanyEmail(string companyEmail)
         {
             return _context.Companies.FirstOrDefault(company => company.Email == companyEmail);
+        }
+        public IEnumerable<Company> GetCompaniesByAccountStatus(StatusAccount accountStatus)
+        {
+            return _context.Companies
+                .Where(c => c.Account.Status == accountStatus)
+                .ToList();
         }
     }
 }

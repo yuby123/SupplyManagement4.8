@@ -198,8 +198,18 @@
     <Compile Include="Contracts\IRoleRepository.cs" />
     <Compile Include="Contracts\ITokenHandlers.cs" />
     <Compile Include="Contracts\IVendorRepository.cs" />
+    <Compile Include="Controller\VendorController.cs" />
     <Compile Include="Controller\AccountController.cs" />
     <Compile Include="Controller\CompanyController.cs" />
+    <Compile Include="Migrations\202401102139548_Database.cs" />
+    <Compile Include="Migrations\202401102139548_Database.Designer.cs">
+      <DependentUpon>202401102139548_Database.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202401102141190_InitialSeed.cs" />
+    <Compile Include="Migrations\202401102141190_InitialSeed.Designer.cs">
+      <DependentUpon>202401102141190_InitialSeed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Services\AccountServices.cs" />
     <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Controller\HomeController.cs" />
@@ -215,15 +225,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202401091103424_Database.cs" />
-    <Compile Include="Migrations\202401091103424_Database.designer.cs">
-      <DependentUpon>202401091103424_Database.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202401091104382_InitialSeed.cs" />
-    <Compile Include="Migrations\202401091104382_InitialSeed.designer.cs">
-      <DependentUpon>202401091104382_InitialSeed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Role.cs" />
@@ -281,6 +282,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Company\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Company\CompanyRequested.cshtml" />
+    <Content Include="Views\Vendor\Create.cshtml" />
+    <Content Include="Views\Vendor\VendorList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -300,11 +304,11 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202401091103424_Database.resx">
-      <DependentUpon>202401091103424_Database.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202401102139548_Database.resx">
+      <DependentUpon>202401102139548_Database.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202401091104382_InitialSeed.resx">
-      <DependentUpon>202401091104382_InitialSeed.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202401102141190_InitialSeed.resx">
+      <DependentUpon>202401102141190_InitialSeed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<SupplyManagement.Models.Company>
+
+<h2>List Companies Requested</h2>
+
+@{
+    string successMessage = TempData["SuccessMessage"] as string;
+    string errorMessage = TempData["ErrorMessage"] as string;
+}
+
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <div class="alert alert-success">
+        @successMessage
+    </div>
+}
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">
+        @errorMessage
+    </div>
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name Company</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var company in Model)
+        {
+            <tr>
+                <td>@company.Name</td>
+                <td>@company.Email</td>
+                <td>@company.PhoneNumber</td>
+                <td>@company.Address</td>
+                <td>
+                    @using (Html.BeginForm("UpdateAccountStatus", "Account", FormMethod.Post, new { @class = "form-inline" }))
+                    {
+                        @Html.Hidden("accountGuid", company.Guid)
+
+                        <div class="form-group">
+                            <select class="form-control" name="newStatus" onchange="this.form.submit()">
+                                <option>Select Option</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Rejected">Rejected</option>
+                                <option value="Canceled">Canceled</option>
+                            </select>
+                        </div>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

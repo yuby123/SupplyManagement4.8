@@ -1,5 +1,7 @@
-﻿using SupplyManagement.DTOs.Companies;
+﻿using SupplyManagement.Contracts;
+using SupplyManagement.DTOs.Companies;
 using SupplyManagement.Services;
+using SupplyManagement.Utilities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +13,15 @@ namespace SupplyManagement.Controllers
     public class CompanyController : Controller
     {
         private readonly CompanyService _companyService;
+        private readonly IAccountRepository _accountRepository;
+        private readonly ICompanyRepository _companyRepository;
 
 
-        public CompanyController(CompanyService companyService)
+        public CompanyController(CompanyService companyService, IAccountRepository accountRepository, ICompanyRepository companyRepository )
         {
             _companyService = companyService;
+            _accountRepository = accountRepository;
+            _companyRepository = companyRepository;
 
         }
 
@@ -29,16 +35,13 @@ namespace SupplyManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Mendapatkan path dasar untuk menyimpan foto
                 string basePath = Server.MapPath("~/Utilities/File/FotoCompany/");
 
                 if (_companyService.Register(registerDto, fotoCompany, basePath))
                 {
-                    // Menetapkan pesan sukses ke TempData untuk ditampilkan di view tujuan
-                    TempData["SuccessMessage"] = "Registrasi berhasil!";
+                    
 
-                    // Redirect ke halaman Index atau halaman lain setelah registrasi berhasil
-                    return RedirectToAction("Index", "Company");
+                    return RedirectToAction("Login", "Account");
                 }
                 else
                 {
@@ -46,8 +49,22 @@ namespace SupplyManagement.Controllers
                 }
             }
 
-            // Jika model tidak valid atau registrasi gagal, tampilkan form lagi dengan pesan kesalahan
             return View(registerDto);
+        }
+
+        public ActionResult CompanyRequested()
+        {
+            var userRole = Session["UserRole"] as string;
+            if (userRole == "admin")
+            {
+                var requestedCompanies = _companyRepository.GetCompaniesByAccountStatus(StatusAccount.Requested);
+                return View(requestedCompanies);
+            }
+            else
+            {
+                return RedirectToAction("Unauthorized", "Error");
+            }
+
         }
     }
 }

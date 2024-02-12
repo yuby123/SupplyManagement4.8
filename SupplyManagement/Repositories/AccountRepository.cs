@@ -2,6 +2,8 @@
 using SupplyManagement.Contracts;
 using SupplyManagement.Data;
 using System.Linq;
+using System;
+using System.Data.Entity;
 
 namespace SupplyManagement.Repositories
 {
@@ -19,9 +21,9 @@ namespace SupplyManagement.Repositories
             var account = _context.Accounts
                 .Join(
                     _context.Companies,
-                    acc => acc.Guid,  // Use a distinct name for the account parameter
+                    acc => acc.Guid,
                     company => company.Guid,
-                    (acc, company) => new  // Use a distinct name for the anonymous type property
+                    (acc, company) => new
                     {
                         Account = acc,
                         Company = company
@@ -32,6 +34,16 @@ namespace SupplyManagement.Repositories
                 .FirstOrDefault();
 
             return account;
+        }
+        public Account GetAccountByGuid(Guid accountGuid)
+        {
+            return _context.Accounts.SingleOrDefault(a => a.Guid == accountGuid);
+        }
+
+        public void UpdateAccountStatus(Account account)
+        {
+            _context.Entry(account).State = EntityState.Modified;
+            _context.SaveChanges();
         }
     }
 }

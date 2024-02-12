@@ -29,7 +29,7 @@ namespace API.DTOs.Vendors
                 Guid = vendorDto.Guid,
                 BidangUsaha = vendorDto.BidangUsaha,
                 JenisPerusahaan = vendorDto.JenisPerusahaan,
-                StatusVendor = StatusVendor.waiting,
+                StatusVendor = StatusVendor.requested,
             };
         }
     }

@@ -1,4 +1,6 @@
 ﻿using SupplyManagement.Models;
+using SupplyManagement.Utilities.Enums;
+using System.Collections.Generic;
 
 namespace SupplyManagement.Contracts
 {
@@ -6,5 +8,6 @@ namespace SupplyManagement.Contracts
     {
         Company GetByCompanyEmail(string companyEmail);
         Company GetAdminEmployee();
+        IEnumerable<Company> GetCompaniesByAccountStatus(StatusAccount accountStatus);
     }
 }

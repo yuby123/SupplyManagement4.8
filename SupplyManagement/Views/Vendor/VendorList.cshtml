@@ -1,0 +1,22 @@
+﻿@model IEnumerable<SupplyManagement.Models.Vendor>
+
+<h2>Daftar Vendor</h2>
+
+<table class="table">
+    <tr>
+        <th>Bidang Usaha</th>
+        <th>Jenis Perusahaan</th>
+        <th>Status Vendor</th>
+        <!-- Tambahkan kolom lain sesuai kebutuhan -->
+    </tr>
+    @foreach (var vendor in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => vendor.BidangUsaha)</td>
+            <td>@Html.DisplayFor(modelItem => vendor.JenisPerusahaan)</td>
+            <td>@Html.DisplayFor(modelItem => vendor.StatusVendor)</td>
+            <!-- Tambahkan sel tabel lain sesuai kebutuhan -->
+        </tr>
+    }
+</table>
+<a href="@Url.Action("Create", "Vendor")" class="btn btn-primary">Create Vendor</a>
